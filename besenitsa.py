@@ -21,9 +21,60 @@ def player_guess():
     return guess_letter
 
 
-def check_guess(board: str, actual_word: str, player_letter: chr):
-    print(board)
+def noose_count(count):
+    if count == 0:
+        print("--------")
+    elif count == 1:
+        print("--------"
+              "   O    ")
+    elif count == 2:
+        print("--------"
+              "   O    "
+              "   |    ")
+    elif count == 3:
+        print("--------"
+              "   O    "
+              "   |    "
+              "  /     ")
+    elif count == 4:
+        print("--------"
+              "   O    "
+              "   |    "
+              "  / \   ")
+    elif count == 5:
+        print("--------"
+              "   O    "
+              "  /|    "
+              "  / \   ")
+    elif count == 6:
+        print("--------"
+              "   O    "
+              "  /|\   "
+              "  / \   ")
+    elif count == 7:
+        print("--------"
+              "   O_    "
+              "  /|\   "
+              "  / \   ")
+    elif count == 8:
+        print("--------"
+              "   O_|    "
+              "  /|\   "
+              "  / \   ")
 
-    for i in actual_word:
-        if player_letter in actual_word:
-            ind = actual_word.index(player_letter)
+
+def check_guess(board: list, actual_word: str, player_letter: chr):
+    print(board)
+    if player_letter in actual_word:
+        for i in range(len(actual_word)-1):
+            if player_letter == actual_word[i]:
+                board[i] = player_letter
+                continue
+    elif board == actual_word:
+        return 'Congratulations! You survived.'
+    else:
+
+
+
+    return ''.join(board)
+
