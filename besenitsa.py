@@ -23,46 +23,30 @@ def player_guess():
     return guess_letter.lower()
 
 
-def noose_count(count):  # I'll use the global_count method for this one
-    if count == 0:
-        print("--------")
-    elif count == 1:
-        print("--------"
-              "   O    ")
-    elif count == 2:
-        print("--------"
-              "   O    "
-              "   |    ")
-    elif count == 3:
-        print("--------"
-              "   O    "
-              "   |    "
-              "  /     ")
-    elif count == 4:
-        print("--------"
-              "   O    "
-              "   |    "
-              "  / \   ")
-    elif count == 5:
-        print("--------"
-              "   O    "
-              "  /|    "
-              "  / \   ")
-    elif count == 6:
-        print("--------"
-              "   O    "
-              "  /|\   "
-              "  / \   ")
-    elif count == 7:
-        print("--------"
-              "   O_    "
-              "  /|\   "
-              "  / \   ")
-    elif count == 8:
-        print("--------"
-              "   O_|    "
-              "  /|\   "
-              "  / \   ")
+def noose_count(count):
+    scaffold = [
+        "--------",
+        "|      |",
+        "|      ",
+        "|      ",
+        "|      ",
+        "|      ",
+        "========"
+    ]
+    if count > 0:
+        scaffold[2] = "|      O"
+    if count > 1:
+        scaffold[3] = "|      |"
+    if count > 2:
+        scaffold[3] = "|     /|"
+    if count > 3:
+        scaffold[3] = "|     /|\\"
+    if count > 4:
+        scaffold[4] = "|     /"
+    if count > 5:
+        scaffold[4] = "|     / \\"
+    for line in scaffold:
+        print(line)
 
 
 # Once again - will use the global_count method
@@ -86,5 +70,28 @@ def check_guess(board: list, actual_word: str, player_letter: chr, count):
 
 
 # Main logic of the game:
+
+# Allowing the second player to set a word.
 word_to_guess = random_word()
+# Show the empty board
+board = print_board(word_to_guess)
+# Initializing the count
+count = global_count()
+
+while True:
+
+    # The player starts guessing
+    guess = player_guess()
+
+    # Performing a check and printing the appropriate message
+    check = check_guess(board, word_to_guess, guess, count)
+    if check == 'Congratulations! You survived.':
+        print(check)
+        break
+    elif check == "You've been hung.":
+        print(check)
+        print("The word was:", word_to_guess)
+        break
+    print_board(board)
+    noose_count(count)
 
